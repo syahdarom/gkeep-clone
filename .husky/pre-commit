@@ -1,0 +1,5 @@
+echo "### Running \"pnpm run lint\" (Turborepo's lint task)..."
+pnpm run lint
+
+echo "### Running \"pnpm exec lint-staged\"..."
+pnpm exec lint-staged
