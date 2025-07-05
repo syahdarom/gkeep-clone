@@ -1,6 +1,10 @@
 {
   "name": "gkeep-clone",
   "private": true,
+  "engines": {
+    "node": ">=18"
+  },
+  "packageManager": "pnpm@9.0.0",
   "scripts": {
     "build": "turbo run build",
     "dev": "turbo run dev",
@@ -14,9 +18,5 @@
     "prettier-plugin-organize-imports": "^4.1.0",
     "turbo": "^2.5.4",
     "typescript": "5.8.2"
-  },
-  "packageManager": "pnpm@9.0.0",
-  "engines": {
-    "node": ">=18"
   }
 }
