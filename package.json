@@ -13,6 +13,8 @@
     "lint:root": "eslint .",
     "format:c": "prettier -c .",
     "format:w": "prettier -w .",
+    "test": "turbo run test",
+    "test:watch": "turbo run test:watch",
     "check-types": "turbo run check-types",
     "prepare": "husky"
   },
