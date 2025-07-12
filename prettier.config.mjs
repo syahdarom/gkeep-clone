@@ -4,7 +4,7 @@
  */
 const config = {
   singleQuote: true,
-  plugins: ['prettier-plugin-organize-imports']
+  plugins: ['prettier-plugin-organize-imports'],
 };
 
 export default config;
