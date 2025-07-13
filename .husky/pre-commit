@@ -1,0 +1,7 @@
+# Run the Turborepo lint task
+echo "Running the Turborepo lint task..."
+pnpm run lint
+
+# Run lint-staged
+echo "Running lint-staged..."
+pnpm exec lint-staged
