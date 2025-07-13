@@ -1,0 +1,12 @@
+.vercel
+.next
+.turbo
+.swc
+
+coverage
+dist
+build
+out
+storybook-static
+
+pnpm-lock.yaml
