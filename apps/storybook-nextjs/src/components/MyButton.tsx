@@ -8,7 +8,7 @@ type ButtonProps = {
   appName: string;
 };
 
-export const Button = ({ children, className, appName }: ButtonProps) => {
+export const MyButton = ({ children, className, appName }: ButtonProps) => {
   return (
     <button
       className={className}

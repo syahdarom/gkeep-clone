@@ -1,0 +1,13 @@
+{
+  "extends": ["//"],
+  "tasks": {
+    "sb": {
+      "cache": false,
+      "persistent": true
+    },
+    "sb:build": {
+      "dependsOn": ["^sb:build"],
+      "outputs": ["storybook-static/**"]
+    }
+  }
+}

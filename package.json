@@ -9,6 +9,8 @@
     "lint:root": "eslint .",
     "format:c": "prettier -c .",
     "format:w": "prettier -w .",
+    "sb": "turbo run sb",
+    "sb:build": "turbo run sb:build",
     "check-types": "turbo run check-types",
     "prepare": "husky"
   },
