@@ -18,6 +18,13 @@
       "persistent": true
     },
     "sb": {},
-    "sb:build": {}
+    "sb:build": {},
+    "test": {
+      "dependsOn": ["^test"]
+    },
+    "test:watch": {
+      "cache": false,
+      "persistent": true
+    }
   }
 }
