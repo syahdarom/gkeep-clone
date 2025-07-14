@@ -2,6 +2,10 @@
 echo "Running the Turborepo lint task..."
 pnpm run lint
 
+# Run the Turborepo test task
+echo "Running the Turborepo test task..."
+pnpm run test
+
 # Run lint-staged
 echo "Running lint-staged..."
 pnpm exec lint-staged
