@@ -11,6 +11,8 @@
     "format:w": "prettier -w .",
     "sb": "turbo run sb",
     "sb:build": "turbo run sb:build",
+    "test": "turbo run test",
+    "test:watch": "turbo run test:watch",
     "check-types": "turbo run check-types",
     "prepare": "husky"
   },
