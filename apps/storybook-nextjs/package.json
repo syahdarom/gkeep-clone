@@ -3,9 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbopack",
-    "build": "next build",
-    "start": "next start",
     "lint": "next lint",
     "sb": "storybook dev -p 6006 --no-open",
     "sb:build": "storybook build"
