@@ -1,4 +1,4 @@
-import type { StorybookConfig } from '@storybook/nextjs';
+import type { StorybookConfig } from '@storybook/nextjs-vite';
 
 import { dirname, join } from 'path';
 
@@ -24,7 +24,7 @@ const config: StorybookConfig = {
     getAbsolutePath('@storybook/addon-vitest'),
   ],
   framework: {
-    name: getAbsolutePath('@storybook/nextjs'),
+    name: getAbsolutePath('@storybook/nextjs-vite'),
     options: {},
   },
   staticDirs: ['../public'],
