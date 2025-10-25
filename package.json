@@ -5,15 +5,23 @@
     "build": "turbo run build",
     "dev": "turbo run dev",
     "lint": "turbo run lint",
+    "lint:root": "eslint .",
     "format:c": "prettier -c .",
     "format:w": "prettier -w .",
     "check-types": "turbo run check-types"
   },
   "devDependencies": {
+    "@eslint/js": "^9.34.0",
+    "eslint": "^9.34.0",
+    "eslint-config-prettier": "^10.1.1",
+    "eslint-plugin-unused-imports": "^4.3.0",
+    "globals": "^16.3.0",
+    "jiti": "^2.6.1",
     "prettier": "^3.6.2",
     "prettier-plugin-organize-imports": "^4.3.0",
     "turbo": "^2.5.8",
-    "typescript": "5.9.2"
+    "typescript": "5.9.2",
+    "typescript-eslint": "^8.40.0"
   },
   "packageManager": "pnpm@9.0.0",
   "engines": {
