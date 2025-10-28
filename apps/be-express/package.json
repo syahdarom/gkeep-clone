@@ -1,0 +1,42 @@
+{
+  "name": "be-express",
+  "version": "0.1.0",
+  "type": "module",
+  "license": "MIT",
+  "private": true,
+  "author": {
+    "name": "Syahda Romansyah",
+    "email": "syahdarom@outlook.com"
+  },
+  "scripts": {
+    "dev": "cross-env NODE_ENV=development tsx watch src/server.ts",
+    "build": "rimraf -- dist/ && node build.js",
+    "start": "cross-env NODE_ENV=production node dist/server.js",
+    "lint": "eslint .",
+    "check-types": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.34.0",
+    "@types/express": "^5.0.4",
+    "@types/morgan": "^1.9.10",
+    "@types/node": "^22.15.3",
+    "cross-env": "^10.1.0",
+    "esbuild": "^0.25.11",
+    "eslint": "^9.34.0",
+    "eslint-config-prettier": "^10.1.1",
+    "eslint-plugin-unused-imports": "^4.3.0",
+    "globals": "^16.3.0",
+    "jiti": "^2.6.1",
+    "rimraf": "^6.0.1",
+    "tsx": "^4.20.6",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.40.0"
+  },
+  "dependencies": {
+    "dotenv": "^17.2.3",
+    "express": "^5.1.0",
+    "morgan": "^1.10.1",
+    "uuid": "^13.0.0",
+    "winston": "^3.18.3"
+  }
+}
