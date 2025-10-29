@@ -9,8 +9,20 @@ if (!nodeFs.existsSync(logsDir)) nodeFs.mkdirSync(logsDir, { recursive: true });
 
 const { combine, errors, timestamp, colorize, json } = winston.format;
 
+const logLevels = [
+  'error',
+  'warn',
+  'info',
+  'http',
+  'verbose',
+  'debug',
+  'silly',
+];
+
+const { logLevel } = envConfig.logger;
+
 const logger = winston.createLogger({
-  level: envConfig.logger.logLevel,
+  level: logLevels.includes(logLevel) ? logLevel : 'warn',
   format: combine(timestamp(), errors({ stack: true }), json()),
 });
 
@@ -24,6 +36,9 @@ if (envConfig.app.nodeEnv !== 'production') {
         },
       ),
     }),
+    new winston.transports.Console({
+      format: combine(colorize({ all: true })),
+    }),
   );
 
   logger.rejections.handle(
@@ -34,6 +49,9 @@ if (envConfig.app.nodeEnv !== 'production') {
           flags: 'a',
         },
       ),
+    }),
+    new winston.transports.Console({
+      format: combine(colorize({ all: true })),
     }),
   );
 

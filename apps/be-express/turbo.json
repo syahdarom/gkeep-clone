@@ -4,10 +4,6 @@
     "build": {
       "dependsOn": ["lint", "check-types"],
       "outputs": ["dist/**"]
-    },
-    "start": {
-      "persistent": true,
-      "cache": false
     }
   }
 }
