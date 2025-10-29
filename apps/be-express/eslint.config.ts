@@ -1,5 +1,6 @@
 import js from '@eslint/js';
 import eslintCfgPrettier from 'eslint-config-prettier/flat';
+import eslintPluginTurbo from 'eslint-plugin-turbo';
 import eslintPluginUnusedImports from 'eslint-plugin-unused-imports';
 import { defineConfig, globalIgnores } from 'eslint/config';
 import globals from 'globals';
@@ -17,6 +18,7 @@ export default defineConfig([
     },
   },
   tseslint.configs.recommended,
+  eslintPluginTurbo.configs['flat/recommended'],
   {
     plugins: {
       'unused-imports': eslintPluginUnusedImports,
