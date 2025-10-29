@@ -1,12 +1,11 @@
 export const envConfig = {
   app: {
-    nodeEnv: process.env.NODE_ENV ?? '',
+    nodeEnv: (process.env.NODE_ENV ?? '').toLowerCase(),
   },
   server: {
-    hostname: process.env.HOSTNAME ?? '',
     port: Number(process.env.PORT),
   },
   logger: {
-    logLevel: process.env.LOG_LEVEL ?? '',
+    logLevel: (process.env.LOG_LEVEL ?? '').toLowerCase(),
   },
 };

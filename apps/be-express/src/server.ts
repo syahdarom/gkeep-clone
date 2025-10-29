@@ -1,4 +1,4 @@
-import './config/setupEnv';
+import 'dotenv/config';
 
 import express from 'express';
 
@@ -44,7 +44,12 @@ mainRouter.get('/ok', (req, res) => {
 expressApp.use(basePath, mainRouter);
 expressApp.use(errorHandlerMiddleware);
 
-const { hostname, port } = envConfig.server;
+const hostname =
+  envConfig.app.nodeEnv === 'production' ? '0.0.0.0' : 'localhost';
+
+const { port } = envConfig.server;
+
+if (!port) throw new Error('The PORT environment variable is invalid');
 
 const serverExpressApp = expressApp.listen(port, hostname, (err) => {
   if (err) {
