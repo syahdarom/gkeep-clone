@@ -2,7 +2,7 @@ openapi: 3.0.4
 info:
   title: A GKeep Clone RESTful API
   description: An OpenAPI specification for the GKeep Clone RESTful API.
-  version: 1.0.0
+  version: 0.1.0
   contact:
     name: Syahda Romansyah
     email: syahdarom@outlook.com
