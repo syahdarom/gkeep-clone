@@ -1,0 +1,9 @@
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
+
+.turbo/
+.vercel/
+.next/
+
+pnpm-lock.yaml
