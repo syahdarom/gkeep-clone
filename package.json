@@ -1,5 +1,6 @@
 {
   "name": "gkeep-clone",
+  "license": "MIT",
   "private": true,
   "scripts": {
     "build": "turbo run build",
