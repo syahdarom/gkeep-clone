@@ -5,8 +5,8 @@
     "build": "turbo run build",
     "dev": "turbo run dev",
     "lint": "turbo run lint",
-    "format:c": "prettier -c .",
-    "format:w": "prettier -w .",
+    "root:format:c": "prettier -c .",
+    "root:format:w": "prettier -w .",
     "check-types": "turbo run check-types"
   },
   "devDependencies": {

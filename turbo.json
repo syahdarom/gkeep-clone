@@ -16,6 +16,8 @@
     "dev": {
       "cache": false,
       "persistent": true
-    }
+    },
+    "//#root:format:c": {},
+    "//#root:format:w": {}
   }
 }
