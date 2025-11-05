@@ -9,7 +9,8 @@
     "root:format:c": "prettier -c .",
     "root:format:w": "prettier -w .",
     "root:lint": "eslint .",
-    "check-types": "turbo run check-types"
+    "check-types": "turbo run check-types",
+    "prepare": "husky"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.1",
@@ -17,7 +18,9 @@
     "eslint-config-prettier": "^10.1.1",
     "eslint-plugin-unused-imports": "^4.3.0",
     "globals": "^16.5.0",
+    "husky": "^9.1.7",
     "jiti": "^2.6.1",
+    "lint-staged": "^16.2.6",
     "prettier": "^3.6.2",
     "prettier-plugin-organize-imports": "^4.3.0",
     "turbo": "^2.6.0",
