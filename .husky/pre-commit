@@ -1,0 +1,11 @@
+# Run the Turborepo linter task
+echo "Running the Turborepo lint task..."
+pnpm run lint
+
+# Run the Turborepo check-types task
+echo "Running the Turborepo check-types task..."
+pnpm run check-types
+
+# Run lint-staged
+echo "Running lint-staged..."
+pnpm exec lint-staged
