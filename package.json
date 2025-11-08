@@ -9,6 +9,8 @@
     "root:format:c": "prettier -c .",
     "root:format:w": "prettier -w .",
     "root:lint": "eslint .",
+    "test": "turbo run test",
+    "test:w": "turbo run test:w",
     "check-types": "turbo run check-types",
     "prepare": "husky"
   },
