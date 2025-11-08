@@ -6,6 +6,10 @@ pnpm run lint
 echo "Running the Turborepo check-types task..."
 pnpm run check-types
 
+# Run the Turborepo test runner task
+echo "Running the Turborepo test runner task..."
+pnpm run test
+
 # Run lint-staged
 echo "Running lint-staged..."
 pnpm exec lint-staged
