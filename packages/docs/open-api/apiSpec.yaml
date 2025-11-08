@@ -1,0 +1,545 @@
+openapi: 3.0.4
+info:
+  title: A GKeep Clone RESTful API
+  description: An OpenAPI specification for the GKeep Clone RESTful API.
+  version: 0.1.0
+  contact:
+    name: Syahda Romansyah
+    email: syahdarom@outlook.com
+  license:
+    name: MIT License
+    url: https://opensource.org/license/mit
+servers:
+  - url: http://localhost:{port}/api
+    description: Local development server
+    variables:
+      port:
+        default: '3000'
+security:
+  - bearerJwtAuth: []
+  - cookieBetterAuthSessionToken: []
+paths:
+  '/notes':
+    get:
+      tags:
+        - Notes
+      summary: Gets all notes.
+      description: Gets all notes. The returned notes are active notes by default only when the status query parameter is not applied or its value is neither a literal "archived" nor "trashed" value.
+      parameters:
+        - in: query
+          name: status
+          schema:
+            type: string
+            enum:
+              - archived
+              - trashed
+          description: The status query parameter to get all archived or trashed notes.
+        - in: query
+          name: search-title
+          schema:
+            type: string
+          description: The search-title query parameter to get all (active, archived, or trashed) notes by the note title.
+          example: My Awesome Note
+      responses:
+        '200':
+          description: A successful response with an array of (active, archived, or trashed) notes data.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  code:
+                    type: number
+                  data:
+                    type: object
+                    properties:
+                      notes:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/Note'
+              examples:
+                UserActiveNotes:
+                  summary: A successful response with an array of active notes data.
+                  description: A successful response with an array of active notes data.
+                  value:
+                    success: true
+                    code: 200
+                    data:
+                      notes:
+                        - id: ac68088a-8e76-484a-a52e-3f9bd0ab24c4
+                          title: Title Note 1
+                          content: Content note 1
+                          formattedContent: {}
+                          status: active
+                          isTrashed: false
+                          createdAt: 2023-12-31T17:00:00.000Z
+                          updatedAt: 2023-12-31T17:00:00.000Z
+                          authorId: abc75cfc-02e7-4fdb-ae7c-5e0310c686bd
+                        - id: zc68088a-8e76-484a-a52e-3f9bd0ab24c8
+                          title: Title Note 2
+                          content: Content note 2
+                          formattedContent: {}
+                          status: active
+                          isTrashed: false
+                          createdAt: 2024-12-31T17:00:00.000Z
+                          updatedAt: 2024-12-31T17:00:00.000Z
+                          authorId: abc75cfc-02e7-4fdb-ae7c-5e0310c686bd
+                UserArchivedNotes:
+                  summary: A successful response with an array of archived notes data.
+                  description: A successful response with an array of archived notes data. The status query parameter must be set to "archived". For example, /notes?status=archived.
+                  value:
+                    success: true
+                    code: 200
+                    data:
+                      notes:
+                        - id: ac68088a-8e76-484a-a52e-3f9bd0ab24c4
+                          title: Title Note 1
+                          content: Content note 1
+                          formattedContent: {}
+                          status: archived
+                          isTrashed: false
+                          createdAt: 2023-12-31T17:00:00.000Z
+                          updatedAt: 2023-12-31T17:00:00.000Z
+                          authorId: abc75cfc-02e7-4fdb-ae7c-5e0310c686bd
+                        - id: zc68088a-8e76-484a-a52e-3f9bd0ab24c8
+                          title: Title Note 2
+                          content: Content note 2
+                          formattedContent: {}
+                          status: archived
+                          isTrashed: false
+                          createdAt: 2024-12-31T17:00:00.000Z
+                          updatedAt: 2024-12-31T17:00:00.000Z
+                          authorId: abc75cfc-02e7-4fdb-ae7c-5e0310c686bd
+                UserTrashedNotes:
+                  summary: A successful response with an array of trashed notes.
+                  description: A successful response with an array of trashed notes. The status query parameter must be set to "trashed". For example, /notes?status=trashed.
+                  value:
+                    success: true
+                    code: 200
+                    data:
+                      notes:
+                        - id: ac68088a-8e76-484a-a52e-3f9bd0ab24c4
+                          title: Title Note 1
+                          content: Content note 1
+                          formattedContent: {}
+                          status: active
+                          isTrashed: true
+                          createdAt: 2023-12-31T17:00:00.000Z
+                          updatedAt: 2023-12-31T17:00:00.000Z
+                          authorId: abc75cfc-02e7-4fdb-ae7c-5e0310c686bd
+                        - id: zc68088a-8e76-484a-a52e-3f9bd0ab24c8
+                          title: Title Note 2
+                          content: Content note 2
+                          formattedContent: {}
+                          status: archived
+                          isTrashed: true
+                          createdAt: 2024-12-31T17:00:00.000Z
+                          updatedAt: 2024-12-31T17:00:00.000Z
+                          authorId: abc75cfc-02e7-4fdb-ae7c-5e0310c686bd
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+    post:
+      tags:
+        - Notes
+      summary: Adds a new note.
+      description: Adds a new note.
+      requestBody:
+        description: A request body data for creating a new note.
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                  minLength: 1
+                  maxLength: 128
+                  description: The note title.
+                content:
+                  type: string
+                  minLength: 1
+                  description: The note content (raw text, unformatted).
+                formattedContent:
+                  type: object
+                  additionalProperties: true
+                  description: The object or JSON value that contains an arbitrary key and value, which represents formatted content in a rich-text editor, such as the Tiptap editor.
+              required:
+                - title
+                - content
+                - formattedContent
+            example:
+              title: A New Note
+              content: A new note
+              formattedContent: {}
+      responses:
+        '201':
+          description: A successful response after creating a new note.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  code:
+                    type: number
+                  data:
+                    type: object
+                    properties:
+                      note:
+                        $ref: '#/components/schemas/Note'
+              example:
+                success: true
+                code: 201
+                data:
+                  note:
+                    id: f7775cfc-02e7-4fdb-ae7c-5e0310c686bd
+                    title: A New Note
+                    content: A new note
+                    formattedContent: {}
+                    status: active
+                    isTrashed: false
+                    createdAt: 2025-01-01T06:29:57.000Z
+                    updatedAt: 2025-01-01T06:29:57.000Z
+                    authorId: abc75cfc-02e7-4fdb-ae7c-5e0310c686bd
+        '400':
+          description: The request body for creating a new note is invalid.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  code:
+                    type: number
+                  error:
+                    type: object
+                    properties:
+                      fieldErrors:
+                        type: object
+                        properties:
+                          title:
+                            type: array
+                            items:
+                              type: string
+                          content:
+                            type: array
+                            items:
+                              type: string
+              example:
+                success: false
+                code: 400
+                error:
+                  fieldErrors:
+                    title:
+                      - Title must not be more than 128 characters
+                    content:
+                      - Content must not be empty
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+  '/notes/{noteId}':
+    get:
+      tags:
+        - Notes
+      summary: Gets a detailed note by the note ID.
+      description: Gets a detailed (active, archived, or trashed) note by the note ID.
+      parameters:
+        - $ref: '#/components/parameters/pathNoteIdParam'
+      responses:
+        '200':
+          description: 'A successful response with a detailed (active, archived, or trashed) note data.'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  code:
+                    type: number
+                  data:
+                    type: object
+                    properties:
+                      note:
+                        $ref: '#/components/schemas/Note'
+              example:
+                success: true
+                code: 200
+                data:
+                  note:
+                    id: ac68088a-8e76-484a-a52e-3f9bd0ab24c4
+                    title: Title Note 1
+                    content: Content note 1
+                    formattedContent: {}
+                    status: active
+                    isTrashed: false
+                    createdAt: 2023-12-31T17:00:00.000Z
+                    updatedAt: 2023-12-31T17:00:00.000Z
+                    authorId: abc75cfc-02e7-4fdb-ae7c-5e0310c686bd
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+    put:
+      tags:
+        - Notes
+      summary: Updates a note data by note ID.
+      description: Updates a note data by note ID.
+      parameters:
+        - $ref: '#/components/parameters/pathNoteIdParam'
+      requestBody:
+        description: A request body data for updating a note.
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                  minLength: 1
+                  maxLength: 128
+                  description: The note title.
+                content:
+                  type: string
+                  minLength: 1
+                  description: The note content (raw text, unformatted).
+                formattedContent:
+                  type: object
+                  additionalProperties: true
+                  description: The object or JSON value that contains an arbitrary key and value, which represents formatted content in a rich-text editor, such as the Tiptap editor.
+                status:
+                  type: string
+                  enum:
+                    - active
+                    - archived
+                  description: The status note.
+                isTrashed:
+                  type: boolean
+                  description: Indicates the note is trashed.
+              required:
+                - title
+                - content
+                - formattedContent
+                - status
+                - isTrashed
+            example:
+              title: Updated Note 1
+              content: Updated content note 1
+              formattedContent: {}
+              status: active
+              isTrashed: false
+      responses:
+        '200':
+          description: A successful response after updating a note by note ID.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  code:
+                    type: number
+                  data:
+                    type: object
+                    properties:
+                      note:
+                        $ref: '#/components/schemas/Note'
+              example:
+                success: true
+                code: 200
+                data:
+                  note:
+                    id: ac68088a-8e76-484a-a52e-3f9bd0ab24c4
+                    title: Updated Note 1
+                    content: Updated content note 1
+                    formattedContent: {}
+                    status: active
+                    isTrashed: false
+                    createdAt: 2023-12-31T17:00:00.000Z
+                    updatedAt: 2024-08-31T17:00:00.000Z
+                    authorId: abc75cfc-02e7-4fdb-ae7c-5e0310c686bd
+        '400':
+          description: The request body for updating a new note is invalid.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  code:
+                    type: number
+                  error:
+                    type: object
+                    properties:
+                      fieldErrors:
+                        type: object
+                        properties:
+                          title:
+                            type: array
+                            items:
+                              type: string
+                          content:
+                            type: array
+                            items:
+                              type: string
+                          status:
+                            type: array
+                            items:
+                              type: string
+                          isTrashed:
+                            type: array
+                            items:
+                              type: string
+              example:
+                success: false
+                code: 400
+                error:
+                  fieldErrors:
+                    title:
+                      - Title must not be more than 128 characters
+                    content:
+                      - Content must not be empty
+                    status:
+                      - Status must be the value of  the literal "active" or "archived"
+                    isTrashed:
+                      - The isTrashed value must be a boolean value
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+    delete:
+      tags:
+        - Notes
+      summary: Deletes a note by the note ID.
+      description: Deletes a note by the note ID.
+      parameters:
+        - $ref: '#/components/parameters/pathNoteIdParam'
+      responses:
+        '204':
+          description: 'A successful response after deleting a note by note ID.'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+components:
+  securitySchemes:
+    cookieBetterAuthSessionToken:
+      type: apiKey
+      in: cookie
+      name: better-auth.session_token
+      description: A cookie authentication with the Better Auth session token cookie.
+    bearerJwtAuth:
+      scheme: bearer
+      type: http
+      bearerFormat: JWT
+      description: A Bearer authentication token with the JWT format.
+  parameters:
+    pathNoteIdParam:
+      in: path
+      name: noteId
+      required: true
+      schema:
+        type: string
+        format: uuid
+      description: The note ID.
+      example: ac68088a-8e76-484a-a52e-3f9bd0ab24c4
+  schemas:
+    Note:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: The note ID.
+        title:
+          type: string
+          description: The note title.
+        content:
+          type: string
+          description: The note content (raw text, unformatted).
+        formattedContent:
+          type: object
+          additionalProperties: true
+          description: The object or JSON value that contains an arbitrary key and value, which represents formatted content in a rich-text editor, such as the Tiptap editor.
+        status:
+          type: string
+          enum:
+            - active
+            - archived
+          description: The note status.
+        isTrashed:
+          type: boolean
+          description: The trashed status of a note.
+        createdAt:
+          type: string
+          format: date-time
+          description: The note creation date.
+        updatedAt:
+          type: string
+          format: date-time
+          description: The latest updated note date.
+        authorId:
+          type: string
+          format: uuid
+          description: The note author ID.
+    ErrorResponseWithMessage:
+      type: object
+      properties:
+        success:
+          type: boolean
+        code:
+          type: number
+        error:
+          type: object
+          properties:
+            message:
+              type: string
+  responses:
+    Unauthorized:
+      description: The specified resource access is denied due to unauthorized access.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseWithMessage'
+          example:
+            success: false
+            code: 401
+            error:
+              message: Unauthorized
+    NotFound:
+      description: The specified resource is not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseWithMessage'
+          example:
+            success: false
+            code: 404
+            error:
+              message: Not found
+    InternalServerError:
+      description: Internal server error.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseWithMessage'
+          example:
+            success: false
+            code: 500
+            error:
+              message: Internal server error
