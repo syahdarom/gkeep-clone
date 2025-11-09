@@ -18,6 +18,15 @@ export default defineConfig([
     },
   },
   tseslint.configs.recommended,
+  {
+    ignores: ['**/*.js'],
+    languageOptions: {
+      parserOptions: {
+        projectService: true,
+        tsconfigRootDir: import.meta.dirname,
+      },
+    },
+  },
   eslintPlgTurbo.configs['flat/recommended'],
   {
     plugins: {
