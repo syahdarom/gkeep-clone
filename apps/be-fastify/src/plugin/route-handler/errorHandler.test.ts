@@ -1,4 +1,4 @@
-import { test } from 'vitest';
+import { expect, test } from 'vitest';
 
 import setupFastifyHttp from '@/config/fastifyConfig';
 import ServerError from '@/exception/ServerError';
