@@ -1,5 +1,5 @@
 {
-  "name": "gkeep-clone",
+  "name": "gkeep-clone-monorepo",
   "license": "MIT",
   "private": true,
   "scripts": {
